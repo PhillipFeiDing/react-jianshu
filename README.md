@@ -1,3 +1,7 @@
+# Introduction
+This is a React implementation of jianshu.com including my React Study notes.
+
+# Default README Coming with Generator
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
