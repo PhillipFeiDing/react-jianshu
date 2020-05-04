@@ -21,16 +21,63 @@ import {
 
 class Header extends Component {
 
+    getListArea() {
+        const {
+            focused,
+            list,
+            page,
+            totalPage,
+            mouseIn,
+            handleMouseEnter,
+            handleMouseLeave,
+            handleChangePage
+        } = this.props
+
+        const jsList = list.toJS()
+        const pageList = []
+        if (jsList.length) {
+            for (let i = page * 10; i < Math.min(jsList.length, (page + 1) * 10); i++) {
+                pageList.push(
+                    <SearchInfoItem key={jsList[i]}>{jsList[i]}</SearchInfoItem>
+                )
+            }
+        }
+
+        if (focused || mouseIn) {
+            return (
+                <SearchInfo
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    <SearchInfoArrow />
+                    <SearchInfoTitle>
+                        Top Search
+                        <SearchInfoSwitch
+                            onClick={() => {handleChangePage(page, totalPage, this.spinIcon)}}
+                        >
+                            <i ref={(icon) => {this.spinIcon = icon}} className='iconfont spin'>&#xe6ad;</i>
+                            See More
+                        </SearchInfoSwitch>
+                    </SearchInfoTitle>
+                    <SearchInfoList>
+                        {pageList}
+                    </SearchInfoList>
+                </SearchInfo>
+            )
+        }
+        return null
+    }
+
     render() {
-        const { focused, handleInputFocus, handleInputBlur } = this.props
+        const { focused, list, handleInputFocus, handleInputBlur } = this.props
         return (
             <HeaderWrapper>
-                <Logo />
+                <Logo/>
                 <Nav>
                     <NavItem className='left active'>Home</NavItem>
                     <NavItem className='left'>Get App</NavItem>
                     <NavItem className='right'>Log In</NavItem>
-                    <NavItem className='right'><i className='iconfont'>&#xe636;</i></NavItem>
+                    <NavItem className='right'><i className='iconfont'>&#xe723;</i></NavItem>
                     <SearchWrapper>
                         <CSSTransition
                             in={focused}
@@ -39,66 +86,52 @@ class Header extends Component {
                         >
                             <NavSearch
                                 className={focused ? 'focused' : ''}
-                                onFocus={handleInputFocus}
+                                onFocus={() => {handleInputFocus(list)}}
                                 onBlur={handleInputBlur}
                             ></NavSearch>
                         </CSSTransition>
-                        <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
+                        <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe614;</i>
                         {this.getListArea()}
                     </SearchWrapper>
                 </Nav>
                 <Addition>
-                    <Button className='compose'><i className="iconfont">&#xe6e5;</i>&nbsp;Compose</Button>
+                    <Button className='compose'><i className='iconfont feather'>&#xe6e5;</i>Compose</Button>
                     <Button className='sign-up'>Sign Up</Button>
                 </Addition>
             </HeaderWrapper>
         )
-    }
-
-    getListArea() {
-        const { focused, list } = this.props
-        if (focused) {
-            return (
-                <SearchInfo>
-                    <SearchInfoArrow />
-                    <SearchInfoTitle>
-                        Top Search
-                        <SearchInfoSwitch>
-                            <i className='iconfont' style={{position: 'absolute', left: '-25px', top: '-5px'}}>&#xe6ad;</i>
-                            See More
-                        </SearchInfoSwitch>
-                    </SearchInfoTitle>
-                    <SearchInfoList>
-                        {
-                            list.map((item) => {
-                                return (
-                                    <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                                )
-                            })
-                        }
-                    </SearchInfoList>
-                </SearchInfo>
-            )
-        }
-        return null
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         focused: state.getIn(['header', 'focused']), // state.get('header').get('focused')
-        list: state.getIn(['header', 'list'])
+        list: state.getIn(['header', 'list']),
+        page: state.getIn(['header', 'page']),
+        totalPage: state.getIn(['header', 'totalPage']),
+        mouseIn: state.getIn(['header', 'mouseIn'])
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleInputFocus: () => {
-            dispatch(actionCreators.getList())
+        handleInputFocus: (list) => {
+            list.size === 0 && dispatch(actionCreators.getList())
             dispatch(actionCreators.searchFocus())
         },
         handleInputBlur: () => {
             dispatch(actionCreators.searchBlur())
+        },
+        handleMouseEnter: () => {
+            dispatch(actionCreators.mouseEnter())
+        },
+        handleMouseLeave: () => {
+            dispatch(actionCreators.mouseLeave())
+        },
+        handleChangePage: (page, totalPage, spin) => {
+            const currAngle = (spin.style.transform || '0').replace(/[^0-9]/ig, '')
+            spin.style.transform = `rotate(${parseInt(currAngle) + 360}deg)`
+            dispatch(actionCreators.changePage((page + 1) % totalPage))
         }
     }
 }

@@ -6,7 +6,6 @@ export const HeaderWrapper = styled.div`
   position: relative;
   height: 56px;
   border-bottom: 1px solid #f0f0f0;
-  font-family: Arial;
 `
 
 export const Logo = styled.a.attrs({
@@ -35,21 +34,24 @@ export const NavItem = styled.div`
   padding: 0 15px;
   font-size: 17px;
   &.left {
-      float: left;
+    float: left;
   }
   &.right {
-      float: right;
-      color: #969696;
+    float: right;
+    color: #969696;
   }
   &.active {
-      color: #ea6f5a;
+    color: #ea6f5a;
+  }
+  .iconfont {
+    font-size: 20px;
   }
 `
 
 export const SearchWrapper = styled.div`
   position: relative;
   float: left;
-  .iconfont {
+  .zoom {
     position: absolute;
     right: 5px;
     bottom: 4px;
@@ -106,6 +108,7 @@ export const SearchInfo = styled.div`
   width: 300px;
   padding: 0 20px;
   box-shadow: 0 0 8px rgba(0,0,0,.2);
+  background: #fff;
 `
 
 export const SearchInfoArrow = styled.div`
@@ -132,11 +135,17 @@ export const SearchInfoList = styled.div`
 `
 
 export const SearchInfoSwitch = styled.span`
-  position: relative;
-  left: 0;
-  top: 0;
   float: right;
   font-size: 13px;
+  cursor: pointer;
+  .spin {
+    display: block;
+    float: left;
+    font-size: 12px;
+    margin-right: 2px;
+    transition: all .2s ease-in;
+    transform-origin: center center;
+  }
 `
 
 export const SearchInfoItem = styled.a`
@@ -174,5 +183,8 @@ export const Button = styled.div`
   &.compose {
     color: #fff;
     background: #ec6149;
+  }
+  .feather {
+    margin-right: 2px;
   }
 `
