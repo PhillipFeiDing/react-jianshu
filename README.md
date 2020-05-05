@@ -1,6 +1,9 @@
 # Introduction
 This is a React implementation of jianshu.com including my React Study notes.
 
+# Use
+`yarn start / npm start`
+
 # Default README Coming with Generator
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
