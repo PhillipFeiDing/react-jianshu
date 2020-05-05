@@ -155,6 +155,9 @@ export const WriterInfoSwitch = styled.span`
 
 export const WriterItem = styled.div`
   overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
   margin-bottom: 15px;
   .writerImg {
     display: block;
@@ -182,7 +185,83 @@ export const WriterInfoWrapper = styled.div`
 `
 
 export const WriterFollow = styled.div`
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   font-size: 13px;
   color: #42c02e;
+  .plus {
+    font-size: 18px;
+    line-height: 13px;
+    position: relative;
+    top: 2px;
+  }
+`
+
+export const WriterFindMore = styled.a`
+  padding: 7px 7px 7px 12px;
+  color: #787878;
+  background-color: #f7f7f7;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  font-size: 13px;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  .narrow {
+    display:inline-block;
+    -webkit-transform:scale(0.75,1.25); /* Safari and Chrome */
+    -moz-transform:scale(0.75,1.25); /* Firefox */
+    -ms-transform:scale(0.75,1.25); /* IE 9 */
+    -o-transform:scale(0.75,1.25); /* Opera */
+    transform:scale(0.75,1.25); /* W3C */
+  }
+`
+
+export const LoadMore = styled.div`
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  margin: 30px 0;
+  background: #a5a5a5;
+  text-align: center;
+  border-radius: 20px;
+  color: #fff;
+  cursor: pointer;
+`
+
+export const NoMore = styled.div`
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    margin: 30px 0;
+    background: #d5d5d5;
+    text-align: center;
+    border-radius: 20px;
+    color: #f00;
+    cursor: not-allowed;
+`
+
+export const BackTop = styled.div`
+  position: fixed;
+  right: 100px;
+  bottom: 100px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  :hover {
+    background: #eee;
+  }
+  .icon {
+    display: block;
+    font-size: 25px;
+    color: #777;
+    transform: rotate(-90deg) scale(0.75,1.5);
+    font-weight: light;
+  }
 `

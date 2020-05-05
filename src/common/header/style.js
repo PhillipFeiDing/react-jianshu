@@ -6,11 +6,10 @@ export const HeaderWrapper = styled.div`
   position: relative;
   height: 56px;
   border-bottom: 1px solid #f0f0f0;
+  z-index: 1;
 `
 
-export const Logo = styled.a.attrs({
-    href: '/'
-})`
+export const Logo = styled.div`
   position: absolute;
   left: 0;
   top: 0;
@@ -45,6 +44,9 @@ export const NavItem = styled.div`
   }
   .iconfont {
     font-size: 20px;
+  }
+  &.button {
+    cursor: pointer;
   }
 `
 
